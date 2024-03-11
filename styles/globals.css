@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 33, 33, 33;
+  --background-start-rgb: 250, 235, 235;
+  --background-end-rgb: 240, 250, 250;
+  --black: #000000;
+  --white: #ffffff;
+  --dark: #17234b;
+  --light: #e3edff;
+  --dark-success: #004122;
+  --light-success: #dbfbec;
+  --dark-error: #991b1b;
+  --light-error: #ffefef;
+  --dark-warning: #311b00;
+  --light-warning: #fff4d8;
+  --dark-disabled: #2e2e2e;
+  --light-disabled: #d4d4d4;
+  --shadow: 0px 4px 100px 75px rgba(215, 241, 255, 0.75);
+}
+
+.dark {
+  --foreground-rgb: 217, 217, 217;
+  --background-start-rgb: 0 5 45;
+  --background-end-rgb: 0, 5, 5;
+  --shadow: 0px 4px 100px 75px rgba(0, 35, 59, 0.75);
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: rgb(var(--foreground-rgb));
+  background: radial-gradient(
+    circle at center,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+main article {
+  box-shadow: var(--shadow);
+}
+
+h1 {
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+nav,
+.highlighted {
+  background-color: #d7f1ff;
+}
+nav.dark,
+.dark.highlighted {
+  background-color: #00233b;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+a:hover,
+button:hover {
+  color: var(--light);
+  background-color: var(--dark);
+  transition: color 0.5s, background-color 0.3s;
+}
+
+.dark a:hover,
+.dark button:hover {
+  color: var(--dark);
+  background-color: var(--light);
+}
+
+a {
+  padding: 4px 24px;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.dark::-webkit-scrollbar-track {
+  background: #010101;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a9a9a9;
+  border-radius: 6px;
+}
+.dark::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+}
