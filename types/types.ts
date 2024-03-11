@@ -11,4 +11,5 @@ export interface Place {
   id?: string;
   geo?: LatLng | undefined;
   name?: string | undefined;
+  displayName?: any;
 }

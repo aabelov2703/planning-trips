@@ -3,11 +3,9 @@ import { geocodeLatLng } from "@/app/api/google-geocode/route";
 import { placeDetails } from "@/app/api/google-places/route";
 import { MarkerF } from "@react-google-maps/api";
 import MapMarkerInfo from "./map-marker-info";
-import { useState } from "react";
-import { Place } from "@/types/types";
 
 const MapMarkers: React.FC<any> = () => {
-  const { userPlaces } = useAppContext();
+  const { userPlaces, setSelectedMarker } = useAppContext();
 
   return (
     <>
@@ -35,6 +33,7 @@ const MapMarkers: React.FC<any> = () => {
                   },
                   type: "secondary",
                 }))}
+              setSelected={setSelectedMarker}
             />
             <GetMarkers
               data={selected?.map((p: any) => ({
@@ -45,6 +44,7 @@ const MapMarkers: React.FC<any> = () => {
                 },
                 type: "selected",
               }))}
+              setSelected={setSelectedMarker}
             />
           </div>
         );
@@ -54,8 +54,6 @@ const MapMarkers: React.FC<any> = () => {
 };
 
 const GetMarkers: React.FC<any> = ({ data, size, type, ...rest }) => {
-  const [selected, setSelected] = useState<Place>();
-
   const markerDragEnd = (e: google.maps.MapMouseEvent) => {
     const lat = e.latLng?.lat();
     const lng = e.latLng?.lng();
@@ -70,7 +68,7 @@ const GetMarkers: React.FC<any> = ({ data, size, type, ...rest }) => {
   };
 
   const markerClick = (place: any) => {
-    if (place?.type === "secondary") setSelected(place);
+    rest?.setSelected && rest.setSelected(place);
   };
 
   return (
@@ -96,9 +94,7 @@ const GetMarkers: React.FC<any> = ({ data, size, type, ...rest }) => {
             );
           })
         : null}
-      {selected && (
-        <MapMarkerInfo marker={selected} close={() => setSelected(undefined)} />
-      )}
+      <MapMarkerInfo />
     </>
   );
 };

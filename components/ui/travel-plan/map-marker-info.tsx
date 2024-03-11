@@ -6,21 +6,24 @@ import MinusSvg from "../svg/minus";
 import { themeCommonStyles } from "@/utils/calcStyles";
 import "./map-restyle.css";
 
-const MapMarkerInfo: React.FC<any> = (props) => {
-  const { marker } = props;
-  const { theme } = useAppContext();
+const MapMarkerInfo: React.FC<any> = () => {
+  const { theme, selectedMarker, setSelectedMarker } = useAppContext();
+
+  const closeInfo = () => setSelectedMarker(undefined);
+
+  if (!selectedMarker) return;
 
   return (
     <InfoWindowF
-      position={marker.geo}
-      onCloseClick={props.close}
+      position={selectedMarker?.geo}
+      onCloseClick={closeInfo}
       options={{ pixelOffset: new google.maps.Size(0, -20) }}
     >
       <div className="px-4 py-2 max-w-[320px]" style={themeCommonStyles(theme)}>
-        <p className="text-sm">{marker?.name || marker?.displayName?.text}</p>
-        {marker?.type === "secondary" && (
-          <InfoWindowControls marker={marker} closeInfo={props.close} />
-        )}
+        <p className="text-sm">
+          {selectedMarker?.name || selectedMarker?.displayName?.text}
+        </p>
+        <InfoWindowControls marker={selectedMarker} closeInfo={closeInfo} />
       </div>
     </InfoWindowF>
   );
@@ -66,20 +69,20 @@ const InfoWindowControls = ({ marker, ...rest }: any) => {
     setUserPlaces(newState);
   };
 
-  console.log("marker", marker);
-
   return (
     <div className="mt-2">
-      <div className="flex items-center h-6">
-        <Button
-          color="success"
-          style={{ width: 20, height: 20, padding: 0 }}
-          onClick={addClick}
-        >
-          <PlusSvg w={5} h={5} />
-        </Button>
-        <span>Add to wishlist</span>
-      </div>
+      {marker?.type === "secondary" && (
+        <div className="flex items-center h-6">
+          <Button
+            color="success"
+            style={{ width: 20, height: 20, padding: 0 }}
+            onClick={addClick}
+          >
+            <PlusSvg w={5} h={5} />
+          </Button>
+          <span>Add to wishlist</span>
+        </div>
+      )}
       {userPlaces
         .find((p) => p.location.id === current.id)
         ?.selected?.filter((p: any) => p.id === marker.id).length > 0 && (

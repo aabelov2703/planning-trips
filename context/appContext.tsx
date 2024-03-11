@@ -12,6 +12,7 @@ export const AppContextProvider: React.FC<BaseProps> = ({ children }) => {
   const [current, setCurrent] = useState<Place>(placeInit);
   const [points, setPoints] = useState<Place[]>([]);
   const [userPlaces, setUserPlaces] = useState<any[]>([]);
+  const [selectedMarker, setSelectedMarker] = useState<any>(undefined);
 
   const appContextValues: AppContextProps = {
     theme,
@@ -22,6 +23,8 @@ export const AppContextProvider: React.FC<BaseProps> = ({ children }) => {
     setPoints,
     userPlaces,
     setUserPlaces,
+    selectedMarker,
+    setSelectedMarker,
   };
 
   return (

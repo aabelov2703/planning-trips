@@ -10,6 +10,8 @@ export interface AppContextProps {
   setPoints: (currentPlaces: Place[]) => void;
   userPlaces: any[];
   setUserPlaces: (userPlaces: any[]) => void;
+  selectedMarker: Place;
+  setSelectedMarker: (selectedMarker?: Place) => void;
 }
 
 export interface BaseProps {
