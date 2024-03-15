@@ -32,41 +32,35 @@ const MapMarkerInfo: React.FC<any> = () => {
 const InfoWindowControls = ({ marker, ...rest }: any) => {
   const { current, userPlaces, setUserPlaces } = useAppContext();
 
-  const addClick = () => {
-    rest.closeInfo && rest.closeInfo();
+  const updSelectedState = (isSelected = false) => {
+    const currentLoc = userPlaces.find((p) => p.location.id === current.id);
+    // selected points list for current location
+    let selected = (currentLoc?.selected || []).filter(
+      (f: any) => f.id !== marker.id
+    );
+    // new selected point
+    if (isSelected)
+      selected = [
+        ...selected,
+        currentLoc?.points?.find((p: any) => p.id === marker.id),
+      ];
 
-    // get user Place
-    const userPlace = userPlaces.find((p) => p.location.id === current.id);
-    // get selected avoiding point doubles
-    const selected = [
-      ...(userPlace?.selected || []).filter((f: any) => f.id !== marker.id),
-      userPlace?.points?.find((p: any) => p.id === marker.id),
-    ];
-    // renew state avoiding location doubles
     const newState = [
       ...userPlaces?.filter((p) => p.location.id !== current.id),
-      { ...userPlace, selected },
+      { ...currentLoc, selected },
     ];
 
     setUserPlaces(newState);
   };
 
-  const deleteClick = () => {
+  const addClick = () => {
+    updSelectedState(true);
     rest.closeInfo && rest.closeInfo();
+  };
 
-    // get user Place
-    const userPlace = userPlaces.find((p) => p.location.id === current.id);
-    // get selected
-    const selected = [
-      ...(userPlace?.selected || []).filter((f: any) => f.id !== marker.id),
-    ];
-    // renew state
-    const newState = [
-      ...userPlaces?.filter((p) => p.location.id !== current.id),
-      { ...userPlace, selected },
-    ];
-
-    setUserPlaces(newState);
+  const deleteClick = () => {
+    updSelectedState();
+    rest.closeInfo && rest.closeInfo();
   };
 
   return (

@@ -1,6 +1,5 @@
 import { useAppContext } from "@/hooks/use-app-context";
-import { geocodeLatLng } from "@/app/api/google-geocode/route";
-import { placeDetails } from "@/app/api/google-places/route";
+import { geocodeLatLng, placeDetails } from "@/app/api/google/route";
 import { MarkerF } from "@react-google-maps/api";
 import MapMarkerInfo from "./map-marker-info";
 

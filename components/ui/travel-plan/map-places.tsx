@@ -1,20 +1,15 @@
 "use client";
-import MapAutocomplete from "./map-autocomplete";
+import { useAppContext } from "@/hooks/use-app-context";
 import { useState } from "react";
-import { nearbySearch } from "@/app/api/google-places/route";
+import MapAutocomplete from "./map-autocomplete";
+import { nearbySearch } from "@/app/api/google/route";
 import { placeTypes } from "@/context/google";
 import SelectMulti from "@/components/common/select-multi";
 import { normalizeStr } from "@/utils/utils";
 import { MAP_RADIUS } from "@/utils/const";
 import Button from "@/components/common/button";
-import { useAppContext } from "@/hooks/use-app-context";
 
-const MapPlaces: React.FC<any> = ({
-  isLoaded,
-  mapRef,
-  autocompleteRef,
-  placesServiceRef,
-}) => {
+const MapPlaces: React.FC<any> = ({ isLoaded, mapRef }) => {
   const { current, setPoints, userPlaces, setUserPlaces } = useAppContext();
   const [showSelectTypes, setShowSelectTypes] = useState(false);
   const [selectedPlaceTypes, setSelectedPlaceTypes] = useState<string[]>([]);
@@ -85,8 +80,6 @@ const MapPlaces: React.FC<any> = ({
     <>
       <MapAutocomplete
         isLoaded={isLoaded}
-        autocompleteRef={autocompleteRef}
-        placesServiceRef={placesServiceRef}
         setShowSelectTypes={setShowSelectTypes}
       />
       {showSelectTypes

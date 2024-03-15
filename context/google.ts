@@ -2,10 +2,17 @@ import { Libraries } from "@react-google-maps/api";
 
 export const libraries: Libraries = ["places"];
 
-export const resultTypesGeocode = "street_address|point_of_interest|locality";
+export const geocodeResTypes = "street_address|point_of_interest|locality";
 
-export const placeDetailsF = "id,displayName,location";
-export const placeDetailsFH = "places.displayName,places.id,places.location";
+export const places = {
+  fields: "id,displayName,location",
+  fieldMask: "places.displayName,places.id,places.location",
+};
+
+export const routes = {
+  fieldMask:
+    "routes.duration,routes.distanceMeters,routes.legs.distanceMeters,routes.legs.duration,routes.legs.startLocation,routes.legs.endLocation",
+};
 
 export const placeTypesAutocomplete = ["locality"];
 

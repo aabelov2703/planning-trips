@@ -9,14 +9,8 @@ import MapMarkers from "./map-markers";
 import MapUserPlacesList from "./map-user-places-list";
 
 const Map: React.FC<MapProps> = () => {
-  const { current, /*points,*/ userPlaces } = useAppContext();
+  const { current, userPlaces } = useAppContext();
   const mapRef = useRef<google.maps.Map | null>(null);
-  const placesServiceRef = useRef<google.maps.places.PlacesService | null>(
-    null
-  );
-  const autocompleteRef = useRef<google.maps.places.AutocompleteService | null>(
-    null
-  );
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -27,8 +21,6 @@ const Map: React.FC<MapProps> = () => {
 
   const onLoadMap = (map: google.maps.Map) => {
     mapRef.current = map;
-    placesServiceRef.current = new google.maps.places.PlacesService(map);
-    autocompleteRef.current = new google.maps.places.AutocompleteService();
   };
 
   console.log("userPlaces", userPlaces);
@@ -39,12 +31,7 @@ const Map: React.FC<MapProps> = () => {
       {isLoaded ? (
         <>
           <div className="w-full max-w-[200px] p-2 absolute z-[1000002] top-30 left-2">
-            <MapPlaces
-              isLoaded={isLoaded}
-              mapRef={mapRef}
-              autocompleteRef={autocompleteRef}
-              placesServiceRef={placesServiceRef}
-            />
+            <MapPlaces isLoaded={isLoaded} mapRef={mapRef} />
           </div>
 
           <GoogleMap

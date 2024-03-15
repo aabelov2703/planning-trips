@@ -3,7 +3,7 @@ import { useAppContext } from "@/hooks/use-app-context";
 import { useEffect } from "react";
 import Map from "@/components/ui/travel-plan/map";
 import { ClickableProps } from "@/types/props";
-import { getIP } from "../../api/ip-geolocation";
+import { getIP } from "../api/ip-geolocation";
 
 const Travel: React.FC<ClickableProps> = () => {
   const { setCurrent } = useAppContext();
