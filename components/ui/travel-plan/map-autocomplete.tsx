@@ -51,6 +51,7 @@ const MapAutocomplete: React.FC<any> = ({
     if (inputValue.length >= 3) {
       timer = setTimeout(() => {
         autoComplete(request).then((res) => {
+          console.log("res", res);
           if (res?.suggestions) setLocations(res?.suggestions);
         });
       }, 500);
@@ -88,10 +89,7 @@ const MapAutocomplete: React.FC<any> = ({
         setUserPlaces(newState);
       }
       setShowSelectTypes(true);
-      console.log("res", res);
     });
-    console.log("location", location);
-    console.log("inputRef.current.value", inputRef.current?.value);
     setSessionToken(undefined);
   };
 

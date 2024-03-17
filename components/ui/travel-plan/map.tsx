@@ -24,7 +24,6 @@ const Map: React.FC<MapProps> = () => {
   };
 
   console.log("userPlaces", userPlaces);
-  console.log("current", current);
 
   return (
     <div className="flex flex-1 flex-col w-full relative ">
@@ -57,7 +56,6 @@ export default Map;
 
 /*
 currentLocation - 1. initial position; 2. autocompleted search snd selected location
-points - points around current location 
-selected - selected and saved points
+points - points around current location. If point is selected then selected flag is set to true, deselected - to false
 saved - true if location was saved by user as interested
 */

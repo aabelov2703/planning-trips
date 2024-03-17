@@ -9,7 +9,7 @@ const MapMarkers: React.FC<any> = () => {
   return (
     <>
       {userPlaces.map((place, ind) => {
-        const { location, points, selected } = place;
+        const { location, points } = place;
         return (
           <div key={ind}>
             <GetMarkers
@@ -21,9 +21,7 @@ const MapMarkers: React.FC<any> = () => {
             />
             <GetMarkers
               data={points
-                ?.filter(
-                  (p: any) => !selected?.find((s: any) => s?.id === p.id)
-                )
+                ?.filter((p: any) => !p?.select)
                 .map((p: any) => ({
                   ...p,
                   geo: {
@@ -35,14 +33,16 @@ const MapMarkers: React.FC<any> = () => {
               setSelected={setSelectedMarker}
             />
             <GetMarkers
-              data={selected?.map((p: any) => ({
-                ...p,
-                geo: {
-                  lat: p.location.latitude,
-                  lng: p.location.longitude,
-                },
-                type: "selected",
-              }))}
+              data={points
+                ?.filter((p: any) => p?.selected)
+                .map((p: any) => ({
+                  ...p,
+                  geo: {
+                    lat: p.location.latitude,
+                    lng: p.location.longitude,
+                  },
+                  type: "selected",
+                }))}
               setSelected={setSelectedMarker}
             />
           </div>

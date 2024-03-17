@@ -34,33 +34,25 @@ const InfoWindowControls = ({ marker, ...rest }: any) => {
 
   const updSelectedState = (isSelected = false) => {
     const currentLoc = userPlaces.find((p) => p.location.id === current.id);
-    // selected points list for current location
-    let selected = (currentLoc?.selected || []).filter(
-      (f: any) => f.id !== marker.id
-    );
-    // new selected point
-    if (isSelected)
-      selected = [
-        ...selected,
-        currentLoc?.points?.find((p: any) => p.id === marker.id),
-      ];
-
+    const updPoints = currentLoc.points.map((p: any) => ({
+      ...p,
+      selected: p.id === marker.id ? isSelected : p?.selected,
+    }));
     const newState = [
       ...userPlaces?.filter((p) => p.location.id !== current.id),
-      { ...currentLoc, selected },
+      { ...currentLoc, points: updPoints },
     ];
 
     setUserPlaces(newState);
+    rest.closeInfo && rest.closeInfo();
   };
 
   const addClick = () => {
     updSelectedState(true);
-    rest.closeInfo && rest.closeInfo();
   };
 
-  const deleteClick = () => {
+  const removeClick = () => {
     updSelectedState();
-    rest.closeInfo && rest.closeInfo();
   };
 
   return (
@@ -77,14 +69,12 @@ const InfoWindowControls = ({ marker, ...rest }: any) => {
           <span>Add to wishlist</span>
         </div>
       )}
-      {userPlaces
-        .find((p) => p.location.id === current.id)
-        ?.selected?.filter((p: any) => p.id === marker.id).length > 0 && (
+      {marker?.selected && (
         <div className="flex items-center h-6">
           <Button
             color="error"
             style={{ width: 20, height: 20, padding: 0 }}
-            onClick={deleteClick}
+            onClick={removeClick}
           >
             <MinusSvg w={5} h={5} />
           </Button>
