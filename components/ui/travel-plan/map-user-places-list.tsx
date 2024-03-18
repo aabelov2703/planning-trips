@@ -5,27 +5,29 @@ import React from "react";
 import { computeRoutes } from "@/app/api/google/route";
 
 const MapUserPlacesList: React.FC<any> = () => {
-  const { userPlaces } = useAppContext();
+  const { userPlaces, setCurrent } = useAppContext();
 
   const clickPlace = (p: any) => {
-    const places = p?.selected || [];
+    setCurrent(p.location);
 
-    if (places.length > 1) {
+    if (userPlaces.length > 1) {
       let intermediates = {};
-      if (places.length > 2)
+      if (userPlaces.length > 2)
         intermediates = {
-          intermediates: places
-            ?.slice(1, places.length - 1)
-            ?.map((p: any) => ({ placeId: p.id })),
+          intermediates: userPlaces
+            ?.slice(1, userPlaces.length - 1)
+            ?.map((p: any) => ({ placeId: p?.location?.id })),
         };
       const route = {
-        origin: { placeId: places[0].id },
-        destination: { placeId: places[places.length - 1].id },
+        origin: { placeId: userPlaces[0]?.location?.id },
+        destination: {
+          placeId: userPlaces[userPlaces.length - 1]?.location?.id,
+        },
         ...intermediates,
       };
 
       console.log("route", route);
-      // calculate optimized route
+      //// calculate optimized route
       //computeRoutes(route)
       //  .then((res) => console.log("res", res))
       //  .catch((err) => console.log(err));

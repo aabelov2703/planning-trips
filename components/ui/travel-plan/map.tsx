@@ -2,11 +2,12 @@
 import { useRef } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { MapProps } from "@/types/props";
-import { libraries, mapOptions } from "@/context/google";
+import { directions, libraries, mapOptions } from "@/context/google";
 import MapPlaces from "./map-places";
 import { useAppContext } from "@/hooks/use-app-context";
 import MapMarkers from "./map-markers";
 import MapUserPlacesList from "./map-user-places-list";
+import MapPolyline from "./map-polyline";
 
 const Map: React.FC<MapProps> = () => {
   const { current, userPlaces } = useAppContext();
@@ -23,6 +24,7 @@ const Map: React.FC<MapProps> = () => {
     mapRef.current = map;
   };
 
+  console.log("current", current);
   console.log("userPlaces", userPlaces);
 
   return (
@@ -41,6 +43,9 @@ const Map: React.FC<MapProps> = () => {
             onLoad={onLoadMap}
           >
             <MapMarkers />
+            <MapPolyline
+              encodedPolyline={directions.routes[0].polyline.encodedPolyline}
+            />
           </GoogleMap>
         </>
       ) : (
@@ -53,9 +58,3 @@ const Map: React.FC<MapProps> = () => {
 };
 
 export default Map;
-
-/*
-currentLocation - 1. initial position; 2. autocompleted search snd selected location
-points - points around current location. If point is selected then selected flag is set to true, deselected - to false
-saved - true if location was saved by user as interested
-*/

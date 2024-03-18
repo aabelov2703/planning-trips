@@ -74,6 +74,8 @@ const MapPlaces: React.FC<any> = ({ isLoaded, mapRef }) => {
       place.location.id === current.id ? { ...place, saved: true } : place
     );
     setUserPlaces(newUserPlaces);
+    // temporarily stored points
+    localStorage.setItem("places", JSON.stringify(newUserPlaces));
   };
 
   return (
@@ -107,13 +109,23 @@ const MapPlaces: React.FC<any> = ({ isLoaded, mapRef }) => {
           <Button
             onClick={getPlaces}
             disabled={selectedPlaceTypes.length === 0}
-            style={{ borderRadius: 4, margin: "4px 0", fontSize: 14 }}
+            style={{
+              borderRadius: 4,
+              margin: "4px 0",
+              padding: "4px 14px",
+              fontSize: 14,
+            }}
           >
             Get points
           </Button>
           <Button
             onClick={clickSavePlaces}
-            style={{ borderRadius: 4, margin: "4px 0", fontSize: 14 }}
+            style={{
+              borderRadius: 4,
+              margin: "4px 0",
+              padding: "4px 14px",
+              fontSize: 14,
+            }}
           >
             Save place
           </Button>

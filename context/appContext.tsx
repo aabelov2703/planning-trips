@@ -1,7 +1,7 @@
 "use client";
 import { AppContextProps, BaseProps } from "@/types/props";
 import { Place } from "@/types/types";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 const placeInit = { name: "", geo: { lat: 0, lng: 0 } };
 
@@ -15,6 +15,12 @@ export const AppContextProvider: React.FC<BaseProps> = ({ children }) => {
   const [selectedMarker, setSelectedMarker] = useState<Place | undefined>(
     undefined
   );
+
+  // if exists init temporarily stored places
+  useEffect(() => {
+    const places = localStorage.getItem("places");
+    if (places) setUserPlaces(JSON.parse(places));
+  }, []);
 
   const appContextValues: AppContextProps = {
     theme,

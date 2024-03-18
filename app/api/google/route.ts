@@ -87,6 +87,7 @@ export const computeRoutes = async (request: any) => {
     };
     const body = JSON.stringify({
       ...request,
+      travelMode: request?.request || "DRIVE",
       optimizeWaypointOrder: needOptimized,
     });
     const method = "POST";
