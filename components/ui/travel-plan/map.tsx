@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { MapProps } from "@/types/props";
-import { directions, libraries, mapOptions } from "@/context/google";
+import { libraries, mapOptions } from "@/context/google";
 import MapPlaces from "./map-places";
 import { useAppContext } from "@/hooks/use-app-context";
 import MapMarkers from "./map-markers";
@@ -43,9 +43,7 @@ const Map: React.FC<MapProps> = () => {
             onLoad={onLoadMap}
           >
             <MapMarkers />
-            <MapPolyline
-              encodedPolyline={directions.routes[0].polyline.encodedPolyline}
-            />
+            <MapPolyline />
           </GoogleMap>
         </>
       ) : (

@@ -51,7 +51,6 @@ const MapAutocomplete: React.FC<any> = ({
     if (inputValue.length >= 3) {
       timer = setTimeout(() => {
         autoComplete(request).then((res) => {
-          console.log("res", res);
           if (res?.suggestions) setLocations(res?.suggestions);
         });
       }, 500);

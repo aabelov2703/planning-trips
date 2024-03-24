@@ -12,6 +12,8 @@ export interface AppContextProps {
   setUserPlaces: (userPlaces: any[]) => void;
   selectedMarker?: Place;
   setSelectedMarker: (selectedMarker?: Place) => void;
+  route: any;
+  setRoute: (route: any) => void;
 }
 
 export interface BaseProps {

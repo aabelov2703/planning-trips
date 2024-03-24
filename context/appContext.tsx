@@ -12,9 +12,8 @@ export const AppContextProvider: React.FC<BaseProps> = ({ children }) => {
   const [current, setCurrent] = useState<Place>(placeInit);
   const [points, setPoints] = useState<Place[]>([]);
   const [userPlaces, setUserPlaces] = useState<any[]>([]);
-  const [selectedMarker, setSelectedMarker] = useState<Place | undefined>(
-    undefined
-  );
+  const [selectedMarker, setSelectedMarker] = useState<Place | undefined>();
+  const [route, setRoute] = useState<string | undefined>();
 
   // if exists init temporarily stored places
   useEffect(() => {
@@ -33,6 +32,8 @@ export const AppContextProvider: React.FC<BaseProps> = ({ children }) => {
     setUserPlaces,
     selectedMarker,
     setSelectedMarker,
+    route,
+    setRoute,
   };
 
   return (
