@@ -15,10 +15,13 @@ const Modal: React.FC<any> = ({ children, close, callback, ...rest }) => {
     <div className="fixed inset-0 flex items-center justify-center z-[1000003]">
       <div className="fixed inset-0 bg-black opacity-50"></div>
       <div
-        className={`fixed p-4 rounded-xl max-w-[1024px] min-w-[214px] w-[80%] h-[50%] shadow-shadow-2 ${theme}`}
+        className="fixed p-4 rounded-xl max-w-[1024px] min-w-[214px] w-[80%] h-[50%] shadow-shadow-2"
         style={themeCommonStyles(theme)}
       >
-        <div className="absolute right-3 top-3">
+        <div className="flex items-center">
+          <div className="flex flex-1 justify-center font-semibold uppercase">
+            {rest?.title}
+          </div>
           <Button
             className="rotate-45"
             style={{
@@ -31,8 +34,14 @@ const Modal: React.FC<any> = ({ children, close, callback, ...rest }) => {
             <PlusSvg />
           </Button>
         </div>
-        {children}
-        <Button onClick={onClick}>Apply</Button>
+        <div className="flex flex-col h-[calc(100%-64px)] overflow-y-auto overflow-hidden inset-1">
+          {children}
+        </div>
+        <div className="flex justify-center">
+          <Button onClick={onClick} className="border-1">
+            Apply
+          </Button>
+        </div>
       </div>
     </div>
   );

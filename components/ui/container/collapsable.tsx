@@ -12,12 +12,12 @@ const Collapsable: React.FC<BaseProps> = ({ children, className, ...rest }) => {
 
   return (
     <div
-      className="w-full rounded px-4 py-2 min-w-[220px] shadow-shadow-2"
+      className="w-full rounded px-4 py-2 min-w-[220px]"
       style={themeCommonStyles(theme)}
       {...rest}
     >
       <Button
-        className="absolute right-4 top-3"
+        className="absolute right-3 top-1"
         style={{
           padding: 0,
           width: 22,

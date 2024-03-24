@@ -4,6 +4,8 @@ import Button from "@/components/common/button";
 import React, { useState } from "react";
 import { computeRoutes } from "@/app/api/google/route";
 import Modal from "../container/modal";
+import Draggable from "@/components/common/draggable";
+import EditSvg from "../svg/edit";
 
 const MapUserPlacesList: React.FC<any> = () => {
   const { userPlaces, setCurrent, setRoute } = useAppContext();
@@ -50,9 +52,7 @@ const MapUserPlacesList: React.FC<any> = () => {
   return (
     <>
       {userPlaces.filter((p) => p.saved).length > 0 ? (
-        <div
-          className={`absolute  p-2 bottom-2 left-2 z-[1000002] bg-opacity-100 text-sm max-h-[180px] overflow-y-auto`}
-        >
+        <div className="absolute bottom-2 left-2 z-[1000002] bg-opacity-100 text-sm max-h-[180px] shadow-shadow-2">
           <Collapsable className="fixed bottom-4 max-w-[320px] w-1/2">
             <>
               {userPlaces
@@ -69,7 +69,17 @@ const MapUserPlacesList: React.FC<any> = () => {
                         {". "}
                         <span>{p.location?.name}</span>
                       </p>
-                      <Button style={{ margin: 0, padding: 0 }}>edt</Button>
+                      <Button
+                        style={{
+                          margin: 0,
+                          marginLeft: 8,
+                          paddingLeft: 4,
+                          width: 24,
+                          height: 24,
+                        }}
+                      >
+                        <EditSvg w={4} h={4} />
+                      </Button>
                     </li>
                   );
                 })}
@@ -84,7 +94,11 @@ const MapUserPlacesList: React.FC<any> = () => {
         </div>
       ) : null}
       {showModal && (
-        <Modal close={() => setShowModal(false)} callback={calculateRoute}>
+        <Modal
+          close={() => setShowModal(false)}
+          callback={calculateRoute}
+          title="Define edge points"
+        >
           <ModalData userPlaces={userPlaces} />
         </Modal>
       )}
@@ -94,22 +108,22 @@ const MapUserPlacesList: React.FC<any> = () => {
 
 const ModalData: React.FC<any> = ({ userPlaces }) => {
   return (
-    <>
+    <Draggable>
       {userPlaces
         .filter((location: any) => location.saved)
         .map((location: any) => (
-          <div key={location.location.id} className="font-semibold">
+          <div key={location.location.id} className="ml-4 font-semibold">
             {location.location.name}
             {location?.points
               ?.filter((p: any) => p.selected)
               .map((p: any) => (
-                <div key={p.id} className="ml-4 font-light">
+                <div key={p.id} className="font-light text-sm">
                   {p.displayName.text}
                 </div>
               ))}
           </div>
         ))}
-    </>
+    </Draggable>
   );
 };
 
